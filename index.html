@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Risol Kita – Risol hangat, pesan lewat WhatsApp</title>
+<meta name="description" content="Risol goreng renyah dengan isi penuh. Pilih menu, tentukan jumlah, dan pesan langsung lewat WhatsApp.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --turmeric:#F4B72E;
+  --crumb:#E08A1E;
+  --ink:#2A1A0F;
+  --chili:#C2321F;
+  --leaf:#2E6B3B;
+  --paper:#FFFBF0;
+  --line:#2A1A0F;
+  --head:"Bricolage Grotesque","Trebuchet MS",sans-serif;
+  --body:"DM Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:var(--body);font-size:17px;line-height:1.6;color:var(--ink);background:var(--paper)}
+h1,h2,h3{font-family:var(--head);line-height:1.05;margin:0}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--chili);outline-offset:3px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+
+/* header */
+.top{display:flex;justify-content:space-between;align-items:center;padding:18px 0}
+.logo{font-family:var(--head);font-weight:800;font-size:1.4rem;text-decoration:none}
+.top a.nav{font-weight:700;text-decoration:none;border-bottom:3px solid var(--chili)}
+
+/* hero */
+.hero{background:var(--turmeric);border-bottom:4px solid var(--line)}
+.hero-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:32px;align-items:center;padding:24px 0 56px}
+.hero h1{font-weight:800;font-size:clamp(2.6rem,7.5vw,5.4rem);letter-spacing:-.02em}
+.hero p{max-width:34ch;font-size:1.15rem;margin:18px 0 26px}
+.btn{display:inline-block;background:var(--ink);color:var(--paper);font:700 1.05rem var(--body);padding:14px 26px;border:0;border-radius:999px;text-decoration:none;cursor:pointer}
+.btn:hover{background:var(--chili)}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.btn:hover[disabled]{background:var(--ink)}
+
+/* risol shape */
+.risol{justify-self:center;width:min(300px,70vw);aspect-ratio:1.5/1;position:relative}
+.risol .shell{position:absolute;inset:0;background:var(--crumb);border:4px solid var(--line);border-radius:150px 150px 28px 28px/150px 150px 28px 28px;overflow:hidden;
+  background-image:radial-gradient(rgba(42,26,15,.28) 2px,transparent 2.5px);background-size:14px 14px}
+.risol .cut{position:absolute;left:14%;right:14%;bottom:-4px;height:34%;background:var(--paper);border:4px solid var(--line);border-radius:70px 70px 0 0;z-index:2}
+.risol .cut::before{content:"";position:absolute;left:12%;right:12%;top:20%;height:34%;background:var(--leaf);border-radius:40px 40px 0 0;opacity:.85}
+.steam{position:absolute;top:-34px;width:10px;height:30px;border-left:4px solid var(--ink);border-radius:50%;animation:steam 2.4s ease-in-out infinite}
+.steam:nth-child(1){left:30%}.steam:nth-child(2){left:50%;animation-delay:.5s}.steam:nth-child(3){left:70%;animation-delay:1s}
+@keyframes steam{0%,100%{transform:translateY(6px);opacity:.15}50%{transform:translateY(-8px);opacity:.8}}
+
+/* sections */
+section{padding:56px 0}
+h2{font-size:clamp(1.9rem,4.5vw,2.8rem);margin-bottom:8px}
+.sub{margin:0 0 28px;max-width:52ch}
+
+/* menu + order */
+.order-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:32px;align-items:start}
+.item{display:grid;grid-template-columns:1fr auto;gap:4px 16px;align-items:center;padding:18px 0;border-top:2px solid var(--line)}
+.item:last-child{border-bottom:2px solid var(--line)}
+.item h3{font-size:1.3rem}
+.item .desc{grid-column:1;margin:0;font-size:.95rem}
+.price{font-weight:700}
+.qty{grid-column:2;grid-row:1/3;display:flex;align-items:center;gap:10px}
+.qty button{width:38px;height:38px;border-radius:50%;border:2px solid var(--line);background:var(--paper);font:700 1.3rem var(--body);cursor:pointer;line-height:1}
+.qty button:hover{background:var(--turmeric)}
+.qty output{min-width:1.6em;text-align:center;font-weight:700;font-size:1.15rem}
+
+.cart{background:var(--turmeric);border:3px solid var(--line);border-radius:18px;padding:24px;position:sticky;top:16px}
+.cart h3{font-size:1.5rem;margin-bottom:12px}
+.cart ul{list-style:none;margin:0 0 12px;padding:0;min-height:2.4em}
+.cart li{display:flex;justify-content:space-between;gap:12px;padding:3px 0}
+.empty{font-style:italic}
+.total{display:flex;justify-content:space-between;font-weight:800;font-size:1.25rem;border-top:3px solid var(--line);padding-top:12px;margin-bottom:16px}
+label{display:block;font-weight:700;margin:12px 0 4px;font-size:.95rem}
+input[type=text],select,textarea{width:100%;padding:11px 12px;border:2px solid var(--line);border-radius:10px;background:var(--paper);font:inherit;color:inherit}
+textarea{resize:vertical;min-height:64px}
+.cart .btn{width:100%;margin-top:18px;text-align:center}
+.hint{font-size:.85rem;margin:8px 0 0}
+
+/* info */
+.info{background:var(--ink);color:var(--paper)}
+.info h2{color:var(--turmeric)}
+.info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.info h3{font-size:1.2rem;margin-bottom:6px;color:var(--turmeric)}
+.info p{margin:0}
+footer{padding:28px 0;font-size:.9rem}
+
+@media (max-width:800px){
+  .hero-grid,.order-grid,.info-grid{grid-template-columns:1fr}
+  .risol{order:-1;margin-top:20px}
+  .cart{position:static}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .steam{animation:none;opacity:.5}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="top">
+      <span class="logo">Risol Kita</span>
+      <a class="nav" href="#pesan">Pesan sekarang</a>
+    </div>
+    <div class="hero-grid">
+      <div>
+        <h1>Digoreng saat dipesan.</h1>
+        <p>Kulit renyah, isi penuh. Pilih menu, tentukan jumlahnya, lalu kirim pesanan lewat WhatsApp.</p>
+        <a class="btn" href="#pesan">Lihat menu</a>
+      </div>
+      <div class="risol" role="img" aria-label="Ilustrasi risol goreng yang dibelah">
+        <span class="steam"></span><span class="steam"></span><span class="steam"></span>
+        <div class="shell"></div>
+        <div class="cut"></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section id="pesan">
+    <div class="wrap">
+      <h2>Menu dan pesan</h2>
+      <p class="sub">Tambah jumlah di menu yang kamu mau. Ringkasan pesanan muncul di samping, lalu kirim ke WhatsApp penjual.</p>
+
+      <div class="order-grid">
+        <div id="menu"></div>
+
+        <aside class="cart" aria-live="polite">
+          <h3>Pesananmu</h3>
+          <ul id="cart-list"><li class="empty">Belum ada pesanan.</li></ul>
+          <div class="total"><span>Total</span><span id="total">Rp 0</span></div>
+
+          <label for="nama">Nama</label>
+          <input type="text" id="nama" autocomplete="name">
+
+          <label for="metode">Ambil atau antar</label>
+          <select id="metode">
+            <option>Ambil di tempat</option>
+            <option>Diantar</option>
+          </select>
+
+          <label for="catatan">Alamat atau catatan</label>
+          <textarea id="catatan" placeholder="Contoh: sambal dipisah"></textarea>
+
+          <button class="btn" id="kirim" disabled>Kirim lewat WhatsApp</button>
+          <p class="hint">Pesananmu akan terbuka di WhatsApp. Kamu bisa cek lagi sebelum mengirim.</p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="info">
+    <div class="wrap">
+      <h2>Info pemesanan</h2>
+      <p class="sub">Ganti isi bagian ini sesuai usahamu.</p>
+      <div class="info-grid">
+        <div><h3>Jam buka</h3><p>Setiap hari, 08.00–18.00</p></div>
+        <div><h3>Pesanan dalam jumlah besar</h3><p>Pesan minimal sehari sebelumnya untuk arisan, acara, atau kantor.</p></div>
+        <div><h3>Lokasi</h3><p>Jl. Contoh No. 12, Balikpapan</p></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">© <span id="tahun"></span> Risol Kita</div>
+</footer>
+
+<script>
+/* ====== UBAH BAGIAN INI ====== */
+const CONFIG = {
+  // Nomor WhatsApp penjual: awali 62, tanpa +, tanpa 0 di depan
+  whatsapp: "6281234567890",
+  menu: [
+    { id: "ragout",  nama: "Risol ragout ayam",       harga: 5000, desc: "Isi ayam, wortel, dan kentang dengan saus putih." },
+    { id: "mayo",    nama: "Risol mayo smoked beef",  harga: 6000, desc: "Smoked beef, telur, dan mayones." },
+    { id: "sayur",   nama: "Risol sayur",             harga: 4000, desc: "Sayuran segar tumis, tanpa daging." },
+    { id: "pisang",  nama: "Risol pisang cokelat",    harga: 4500, desc: "Pisang manis dengan cokelat leleh." }
+  ]
+};
+/* ============================= */
+
+const rupiah = n => "Rp " + n.toLocaleString("id-ID");
+const qty = {};
+CONFIG.menu.forEach(m => qty[m.id] = 0);
+
+const menuEl = document.getElementById("menu");
+menuEl.innerHTML = CONFIG.menu.map(m => `
+  <div class="item">
+    <h3>${m.nama} <span class="price">· ${rupiah(m.harga)}</span></h3>
+    <div class="qty">
+      <button type="button" data-id="${m.id}" data-d="-1" aria-label="Kurangi ${m.nama}">−</button>
+      <output id="q-${m.id}">0</output>
+      <button type="button" data-id="${m.id}" data-d="1" aria-label="Tambah ${m.nama}">+</button>
+    </div>
+    <p class="desc">${m.desc}</p>
+  </div>`).join("");
+
+const listEl = document.getElementById("cart-list");
+const totalEl = document.getElementById("total");
+const kirimEl = document.getElementById("kirim");
+
+function render(){
+  let total = 0, html = "";
+  CONFIG.menu.forEach(m => {
+    const q = qty[m.id];
+    document.getElementById("q-" + m.id).textContent = q;
+    if (q > 0){
+      total += q * m.harga;
+      html += `<li><span>${q} × ${m.nama}</span><span>${rupiah(q * m.harga)}</span></li>`;
+    }
+  });
+  listEl.innerHTML = html || '<li class="empty">Belum ada pesanan.</li>';
+  totalEl.textContent = rupiah(total);
+  kirimEl.disabled = total === 0;
+}
+
+menuEl.addEventListener("click", e => {
+  const b = e.target.closest("button[data-id]");
+  if (!b) return;
+  const id = b.dataset.id;
+  qty[id] = Math.max(0, qty[id] + Number(b.dataset.d));
+  render();
+});
+
+kirimEl.addEventListener("click", () => {
+  let total = 0;
+  const baris = CONFIG.menu.filter(m => qty[m.id] > 0).map(m => {
+    total += qty[m.id] * m.harga;
+    return `- ${qty[m.id]} × ${m.nama} (${rupiah(qty[m.id] * m.harga)})`;
+  });
+  const nama = document.getElementById("nama").value.trim();
+  const metode = document.getElementById("metode").value;
+  const catatan = document.getElementById("catatan").value.trim();
+  const pesan = [
+    "Halo, saya mau pesan risol:",
+    ...baris,
+    `Total: ${rupiah(total)}`,
+    nama ? `Nama: ${nama}` : "",
+    `Metode: ${metode}`,
+    catatan ? `Catatan: ${catatan}` : ""
+  ].filter(Boolean).join("\n");
+  window.open(`https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(pesan)}`, "_blank", "noopener");
+});
+
+document.getElementById("tahun").textContent = new Date().getFullYear();
+render();
+</script>
+</body>
+</html>
